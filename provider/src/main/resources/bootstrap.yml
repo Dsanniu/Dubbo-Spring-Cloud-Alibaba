@@ -1,0 +1,36 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: provider
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+
+
+
+#-------------------------------------------------------
+
+#dubbo:
+#  scan:
+#    # 扫描路径
+#    base-packages: site.sanniu.service
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  # 注册中心 协议 + ip + 端口号
+#  registry:
+#    address: spring-cloud://127.0.0.1:8848
+#  application:
+#    name: provider
+#spring:
+#  application:
+#    name: provider
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#  main:
+#    allow-bean-definition-overriding: true
