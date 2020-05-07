@@ -1,0 +1,31 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+#      config:
+#        file-extension: yaml
+#        server-addr: 127.0.0.1:8848
+    gateway:
+#      discovery:
+#        locator:
+#          enabled: true #让gateway 从nacos中拉去配置文件
+      routes:
+        - id: provider_route
+          uri: lb://provider
+          order: 1
+          predicates:
+            - Path=/provider/**
+          filters: # 过滤器 在请求传递过程中 对请求做一些手脚  数组
+            - StripPrefix=1 #在请求转发之前去掉一层路径
+        - id: consumer_route
+          uri: lb://consumer
+          order: 1
+          predicates:
+            - Path=/consumer/**
+          filters: # 过滤器 在请求传递过程中 对请求做一些手脚  数组
+            - StripPrefix=1 #在请求转发之前去掉一层路径

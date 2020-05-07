@@ -1,38 +1,47 @@
 server:
   port: 8081
-spring:
-  application:
-    name: consumer
-  cloud:
-    nacos:
-      config:
-        server-addr: 127.0.0.1:8848
-        #默认值为properties 所以一定要设置
-        file-extension: yaml
-        # 默认值为spring.application.name的值
-        #prefix: consumer
-        #默认值为DEFAULT_GROUP
-        #group: DEFAULT_GROUP
-
-
-#-----------------------------------------------------------
-#dubbo:
-#  protocol:
-#    name: dubbo
-#    port: -1
-#  registry:
-#    address: spring-cloud://127.0.0.1:8848
-#  # 表示要订阅的服务
-#  cloud:
-#    subscribed-services: provider
-#  application:
-#    name: consumer
 #spring:
 #  application:
 #    name: consumer
 #  cloud:
 #    nacos:
-#      discovery:
+#      config:
 #        server-addr: 127.0.0.1:8848
-#  main:
-#    allow-bean-definition-overriding: true
+#        #默认值为properties 所以一定要设置
+#        file-extension: yaml
+#        # 默认值为spring.application.name的值
+#        #prefix: consumer
+#        #默认值为DEFAULT_GROUP
+#        #group: DEFAULT_GROUP
+
+
+#-----------------------------------------------------------
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://127.0.0.1:8848
+  # 表示要订阅的服务
+  cloud:
+    subscribed-services: provider
+spring:
+  application:
+    name: consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    # sentinel
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      datasource:
+        ds:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: consumer-sentinel
+            groupId: DEFAULT_GROUP
+            rule-type: flow
+  main:
+    allow-bean-definition-overriding: true
